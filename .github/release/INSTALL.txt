@@ -1,0 +1,34 @@
+SFTPiiU - SFTP server for the Wii U
+===================================
+
+Requires a Wii U running Aroma.
+
+Installation
+------------
+1. Copy the "wiiu" folder from this zip to the root of your SD card
+   (merge it with the "wiiu" folder that is already there):
+     wiiu/apps/SFTPiiU.wuhb
+         the app, shows up in the Wii U Menu
+     wiiu/environments/aroma/plugins/SFTPiiU.wps
+         the plugin, keeps the server running in the background,
+         in the Wii U Menu and while you play
+2. Put the SD card back and restart the console.
+3. Open the SFTPiiU app, or the Aroma menu (L + D-pad down + Minus,
+   then "SFTPiiU"). Both show the address, the password and the
+   host key fingerprint.
+4. Connect with any SFTP client (WinSCP, FileZilla, Cyberduck, sftp):
+     protocol  SFTP
+     host      the console's IP address
+     port      22
+     user      anything, e.g. wiiu
+     password  shown on the console
+
+Only want the server while the app is open? Leave out SFTPiiU.wps, or
+switch off "Keep running in the background" in the app's settings.
+
+Keep the server in your home network: do not forward port 22 in your
+router.
+
+More: https://github.com/sanyahax/SFTPiiU
+
+made by sanyahax (github @sanyahax) - ajk.dev

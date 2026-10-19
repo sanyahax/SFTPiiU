@@ -1,0 +1,40 @@
+name: Release
+
+# Pushing a tag such as v1.3.0 publishes a release with a ready-to-copy SD
+# card zip. It ships the builds committed in the repository root
+# (SFTPiiU.wps, SFTPiiU.wuhb), which are the ones tested on hardware.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package the SD card layout
+        run: |
+          mkdir -p pkg/wiiu/apps pkg/wiiu/environments/aroma/plugins
+          cp SFTPiiU.wuhb pkg/wiiu/apps/
+          cp SFTPiiU.wps pkg/wiiu/environments/aroma/plugins/
+          cp .github/release/INSTALL.txt pkg/
+          cd pkg && zip -r -X "../SFTPiiU-${GITHUB_REF_NAME}.zip" .
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          zip="SFTPiiU-${GITHUB_REF_NAME}.zip"
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            # The tag was moved: refresh the zip of the existing release.
+            gh release upload "$GITHUB_REF_NAME" "$zip" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$zip" \
+              --title "SFTPiiU ${GITHUB_REF_NAME#v}" \
+              --notes-file .github/release/notes.md
+          fi

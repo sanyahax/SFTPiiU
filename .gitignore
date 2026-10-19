@@ -1,0 +1,12 @@
+build/
+*.wps
+*.elf
+*.map
+app/build/
+app/build_tour/
+app/*.rpx
+app/*.wuhb
+host/sftpiiu_host.exe
+host/wasm/*.wasm
+host/wasm/build.log
+host/*.pdb

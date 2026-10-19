@@ -1,0 +1,20 @@
+name: Build
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build plugin and app
+        run: |
+          docker build . -t sftpiiu-builder
+          docker run --rm -v ${PWD}:/project sftpiiu-builder make -j$(nproc)
+          docker run --rm -v ${PWD}:/project sftpiiu-builder make -C app -j$(nproc)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SFTPiiU
+          path: |
+            *.wps
+            app/*.wuhb
