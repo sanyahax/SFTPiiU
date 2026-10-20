@@ -314,4 +314,4 @@ MIT, see `LICENSE`. X25519/Ed25519 are based on TweetNaCl (public domain).
 
 ---
 
-made by sanyahax ([github @sanyahax](https://github.com/sanyahax)) - ajk.dev
+made by sanyahax ([github @sanyahax](https://github.com/sanyahax)) - ajk.dev - https://ajk.dev/projects/sftpiiu
